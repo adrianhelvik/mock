@@ -2,7 +2,7 @@
   "name": "@adrianhelvik/mock",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/mock.js",
   "scripts": {
     "test": "jest --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
