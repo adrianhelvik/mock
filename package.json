@@ -3,6 +3,10 @@
   "version": "1.0.1",
   "description": "",
   "main": "lib/mock.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adrianhelvik/mock"
+  },
   "scripts": {
     "test": "jest --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
