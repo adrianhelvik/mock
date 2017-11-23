@@ -74,14 +74,6 @@ describe('mock', () => {
     })
   })
 
-  describe('$parent', () => {
-    test('the parent property refers to the previous part of the access chain', () => {
-      const m = mock()
-
-      expect(m.foo.bar.car.$parent).toBe(m.foo.bar)
-    })
-  })
-
   test('you can determine what each function was called with', () => {
     const m = mock()
 
@@ -152,6 +144,50 @@ describe('mock', () => {
         called = true
       })
       expect(called).toBe(false)
+    })
+  })
+
+  describe('docs', () => {
+    test('example', () => {
+      const foobar = mock()
+      foobar.x.y('Hello world').z('How are you')
+      foobar.message = 'cool brah'
+      foobar.fn = (who) => 'Hello ' + who
+
+      expect(foobar.x.y.$args[0]).toEqual(['Hello world'])
+      expect(foobar.x.y().z.$args[0]).toEqual(['How are you'])
+      expect(foobar.message).toEqual('cool brah')
+      expect(foobar.fn('you!')).toEqual('Hello you!')
+      expect(foobar.fn('someone!')).toEqual('Hello someone!')
+      expect(foobar.fn.$args[0]).toEqual(['you!'])
+      expect(foobar.fn.$args[1]).toEqual(['someone!'])
+    })
+
+    describe('API', () => {
+      test('mock()', () => {
+        const m = mock()
+
+        expect(m.foo).toBe(m.foo)
+        expect(m()).toBe(m())
+        expect(m()).not.toBe(mock)
+      })
+
+      describe('Assignment', () => {
+        test('Assigning functions to a mock gives you access to $args', () => {
+          const m = mock()
+
+          const mockEncrypt = password => 'secret:' + password
+          m.encrypt = mockEncrypt
+          const encrypted = m.encrypt('my password')
+
+          // it uses the mock function
+          expect(encrypted).toEqual('secret:my password')
+          // and you have access to $args
+          expect(m.encrypt.$args[0]).toEqual(['my password'])
+          // , but it does not point to the same object anymore
+          expect(m.encrypt).not.toBe(mockEncrypt)
+        })
+      })
     })
   })
 })
