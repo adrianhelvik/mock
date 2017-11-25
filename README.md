@@ -6,6 +6,10 @@
 I have now been using and loving this module for some time,
 so I decided to write some docs and share it with the world!
 
+## When to use this module
+- When you do not need IE11 support for your tests
+- When you want a universal mocker and stubber
+
 ## What you can do with this module
 
 - Call it as a function
@@ -18,18 +22,22 @@ so I decided to write some docs and share it with the world!
 ```javascript
 import mock from '@adrianhelvik/mock'
 
-const foobar = mock()
-foobar.x.y('Hello world').z('How are you')
-foobar.message = 'cool brah'
-foobar.fn = (who) => 'Hello ' + who
+const m = mock()
 
-expect(foobar.x.y.$args[0]).toEqual(['Hello world'])
-expect(foobar.x.y().z.$args[0]).toEqual(['How are you'])
-expect(foobar.message).toEqual('cool brah')
-expect(foobar.fn('you!')).toEqual('Hello you!')
-expect(foobar.fn('someone!')).toEqual('Hello someone!')
-expect(foobar.fn.$args[0]).toEqual(['you!'])
-expect(foobar.fn.$args[1]).toEqual(['someone!'])
+m.x.y('Hello world').z('How are you')
+
+expect(m.x.y.$args[0]).toEqual(['Hello world'])
+expect(m.x.y().z.$args[0]).toEqual(['How are you'])
+
+m.message = 'cool brah'
+expect(m.message).toEqual('cool brah')
+
+m.fn = (who) => 'Hello ' + who
+
+expect(m.fn('you!')).toEqual('Hello you!')
+expect(m.fn('someone!')).toEqual('Hello someone!')
+expect(m.fn.$args[0]).toEqual(['you!'])
+expect(m.fn.$args[1]).toEqual(['someone!'])
 ```
 
 ## API
