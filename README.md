@@ -11,7 +11,7 @@ so I decided to write some docs and share it with the world!
 - When you want a universal mocker and stubber
 
 ## What you can do with this module
-
+- Access any deeply nested property and receive a new mock object
 - Call it as a function
 - Set a property to be some value
 - Determine what arguments a mock or a nested is called with
