@@ -107,7 +107,7 @@ m.meaning.of.life = 42
 expect(m.meaning.of.life).toBe(42)
 ```
 
-#### Assigning functions to a mock gies you access to $args
+#### Assigning functions to a mock gives you access to $args
 When assigning functions as a property of a mock, you will also
 have access to `$args` of this function.
 
