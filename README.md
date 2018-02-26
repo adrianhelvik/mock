@@ -27,7 +27,7 @@ const m = mock()
 m.x.y('Hello world').z('How are you')
 
 expect(m.x.y.$args[0]).toEqual(['Hello world'])
-expect(m.x.y().z.$args[0]).toEqual(['How are you'])
+expect(m.x.y.z.$args[0]).toEqual(['How are you'])
 
 m.message = 'cool brah'
 expect(m.message).toEqual('cool brah')
@@ -135,4 +135,15 @@ expect(encrypted).toEqual('secret:my password')
 expect(m.encrypt.$args[0]).toEqual(['my password'])
 // , but it does not point to the same object anymore
 expect(m.encrypt).not.toBe(mockEncrypt)
+```
+
+# Changelog
+
+## v3.0.0 
+
+### Made function calling optional when retrieving $args from a nested function
+```javascript
+const m = mock()
+m.foo(1).bar(2)
+expect(m.foo.bar.$args).toBe(m.foo().bar.$args)
 ```

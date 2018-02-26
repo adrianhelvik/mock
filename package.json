@@ -1,6 +1,6 @@
 {
   "name": "@adrianhelvik/mock",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "",
   "main": "lib/mock.js",
   "repository": {
@@ -8,6 +8,7 @@
     "url": "https://github.com/adrianhelvik/mock"
   },
   "scripts": {
+    "start": "jest --watch --coverage",
     "test": "jest --coverage",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },

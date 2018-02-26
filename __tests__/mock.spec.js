@@ -79,8 +79,9 @@ describe('mock', () => {
 
     m.foo.bar('Hello world').biz.baz('Yep')
 
-    expect(m.foo.bar.$args[0]).toEqual(['Hello world'])
-    expect(m.foo.bar().biz.baz.$args[0]).toEqual(['Yep'])
+    expect(m.foo.bar.$args).toEqual([['Hello world']])
+    expect(m.foo.bar().biz.baz.$args).toBe(m.foo.bar.biz.baz.$args)
+    expect(m.foo.bar.biz.baz.$args).toEqual([['Yep']])
   })
 
   test('you can specify nested functions', () => {
@@ -155,7 +156,7 @@ describe('mock', () => {
       foobar.fn = (who) => 'Hello ' + who
 
       expect(foobar.x.y.$args[0]).toEqual(['Hello world'])
-      expect(foobar.x.y().z.$args[0]).toEqual(['How are you'])
+      expect(foobar.x.y.z.$args[0]).toEqual(['How are you'])
       expect(foobar.message).toEqual('cool brah')
       expect(foobar.fn('you!')).toEqual('Hello you!')
       expect(foobar.fn('someone!')).toEqual('Hello someone!')
@@ -188,6 +189,14 @@ describe('mock', () => {
           expect(m.encrypt).not.toBe(mockEncrypt)
         })
       })
+    })
+  })
+
+  describe('Changelog', () => {
+    test('v3.0.0', () => {
+      const m = mock()
+      m.foo(1).bar(2)
+      expect(m.foo.bar.$args).toBe(m.foo().bar.$args)
     })
   })
 })
