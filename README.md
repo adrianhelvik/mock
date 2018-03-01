@@ -116,7 +116,7 @@ m.$throws = true
 m.foo.bar()
   .then(() => done.fail('Should not succeed!')
   .catch(error => done())
-``
+```
 
 ### Assignment
 You can assign properties to a mock object. This is often
