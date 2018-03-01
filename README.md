@@ -106,7 +106,7 @@ expect(resolvedTo).toBe(undefined)
 
 Se the tests for further info. Supports catch binding as well.
 
-# $throws
+### $throws
 If you want a promise to fail, you can set `m.$throws = true`.
 
 ```javascript
