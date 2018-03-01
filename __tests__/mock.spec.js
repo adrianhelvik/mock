@@ -137,6 +137,73 @@ describe('mock', () => {
       expect(called).toBe(true)
     })
 
+    test('you can call .catch on the mock', (done) => {
+      const m = mock()
+      m.$throws = true
+      m.foo.bar.catch(e => {
+        done()
+      })
+    })
+
+    test('you can get the $throws property', () => {
+      const m = mock()
+      m.$throws = true
+      expect(m.$throws).toBe(true)
+    })
+
+    test('you can call both .then and .catch on the mock for a non-erroring promise', (done) => {
+      const m = mock()
+
+      let called = {
+        then: false,
+        catch: false,
+      }
+
+      const check = () => {
+        if (called.catch)
+          done.fail(Error('Expected then not to be called'))
+        else
+          done()
+      }
+
+      m.foo.bar
+        .then(() => {
+          called.then = true
+          setTimeout(check)
+        })
+        .catch(() => {
+          called.catch = true
+          setTimeout(check)
+        })
+    })
+
+    test('you can call both .then and .catch on the mock for a erroring promise', (done) => {
+      const m = mock()
+      m.$throws = true
+
+      let called = {
+        then: false,
+        catch: false,
+      }
+
+      const check = () => {
+        if (called.then)
+          done.fail(Error('Expected then not to be called'))
+        else
+          done()
+      }
+
+      m.foo.bar
+        .then(() => {
+          called.then = true
+          setTimeout(check)
+        })
+        .catch(() => {
+          called.catch = true
+          setTimeout(check)
+        })
+    })
+
     test('it handles promises after the current event loop run for values', () => {
       const m = mock()
 

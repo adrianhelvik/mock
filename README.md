@@ -104,6 +104,20 @@ const resolvedTo = await mock()
 expect(resolvedTo).toBe(undefined)
 ```
 
+Se the tests for further info. Supports catch binding as well.
+
+# $throws
+If you want a promise to fail, you can set `m.$throws = true`.
+
+```javascript
+const m = mock()
+m.$throws = true
+
+m.foo.bar()
+  .then(() => done.fail('Should not succeed!')
+  .catch(error => done())
+``
+
 ### Assignment
 You can assign properties to a mock object. This is often
 very useful in testing.
