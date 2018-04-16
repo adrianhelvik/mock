@@ -213,6 +213,20 @@ describe('mock', () => {
       })
       expect(called).toBe(false)
     })
+
+    test('you can reassign .then', async () => {
+      const m = mock()
+      let called = false
+
+      m.then = function (fn) {
+        called = true
+        fn()
+      }
+
+      await m
+
+      expect(called).toBe(true)
+    })
   })
 
   describe('docs', () => {

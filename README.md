@@ -151,6 +151,26 @@ expect(m.encrypt.$args[0]).toEqual(['my password'])
 expect(m.encrypt).not.toBe(mockEncrypt)
 ```
 
+### Reassigning .then
+
+You can reassign then for testing custom thenables. You must
+however remember to call the received function for the promise
+to resolve.
+
+```javascript
+const m = mock()
+let called = false
+
+m.then = function (fn) {
+  called = true
+  fn()
+}
+
+await m
+
+expect(called).toBe(true)
+```
+
 # Changelog
 
 ## v3.0.0 
