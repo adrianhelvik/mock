@@ -214,3 +214,6 @@ const m = mock()
 m.foo(1).bar(2)
 expect(m.foo.bar.$args).toBe(m.foo().bar.$args)
 ```
+
+## v3.3.0
+- Added .$reset() method to reset .$args for current and child mocks.
