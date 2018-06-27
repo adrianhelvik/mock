@@ -279,5 +279,37 @@ describe('mock', () => {
       m.foo(1).bar(2)
       expect(m.foo.bar.$args).toBe(m.foo().bar.$args)
     })
+
+    describe('3.3.0', () => {
+      test('you can reset all $args on children of a mock by calling someMock.$reset()', () => {
+        const a = mock()
+
+        // Parents are left unchanged
+        //     |
+        //     |____
+        //     |    |
+        //     v    v
+        /**/ a(1).b(2).c(3).d(4).e(5)
+        //             ^    ^    ^
+        //             |____|____|
+        //                  |
+        //      Target and children are reset
+
+        a.b.c.$reset()
+
+        const b = a.b
+        const c = b.c
+        const d = c.d
+        const e = d.e
+
+        // Parents are left unchanged
+        for (const x of [a, b])
+          expect(x.$args.length).toBe(1)
+
+        // Target and children are reset
+        for (const x of [c, d, e])
+          expect(x.$args.length).toBe(0)
+      })
+    })
   })
 })
