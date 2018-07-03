@@ -1,6 +1,6 @@
 {
   "name": "@adrianhelvik/mock",
-  "version": "3.3.1",
+  "version": "3.3.2",
   "description": "",
   "main": "lib/mock.js",
   "repository": {
@@ -13,7 +13,7 @@
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "coveralls": "^2.13.1",
     "jest": "^20.0.4"
