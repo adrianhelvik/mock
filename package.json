@@ -1,6 +1,6 @@
 {
   "name": "@adrianhelvik/mock",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "description": "",
   "main": "lib/mock.js",
   "repository": {
