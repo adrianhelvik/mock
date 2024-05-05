@@ -1,6 +1,6 @@
 {
   "name": "@adrianhelvik/mock",
-  "version": "3.3.4",
+  "version": "3.3.5",
   "description": "",
   "main": "lib/mock.js",
   "repository": {
@@ -15,6 +15,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@types/jest": "^29.5.12",
     "coveralls": "^3.1.1",
     "jest": "^29.7.0"
   }

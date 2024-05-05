@@ -1,3 +1,5 @@
+// @ts-check
+
 const mock = require('../lib/mock')
 
 describe('mock', () => {
@@ -121,7 +123,6 @@ describe('mock', () => {
 
     test('you can call .then on the mock', async () => {
       const m = mock()
-      const fn = mock()
       let called = false
 
       m.then(() => {
@@ -130,7 +131,7 @@ describe('mock', () => {
 
       await new Promise(resolve => {
         setTimeout(async () => {
-          resolve()
+          resolve(undefined)
         })
       })
 
@@ -140,7 +141,7 @@ describe('mock', () => {
     test('you can call .catch on the mock', (done) => {
       const m = mock()
       m.$throws = true
-      m.foo.bar.catch(e => {
+      m.foo.bar.catch(() => {
         done()
       })
     })
@@ -218,6 +219,9 @@ describe('mock', () => {
       const m = mock()
       let called = false
 
+      /**
+       * @param {() => void} fn
+       */
       m.then = function (fn) {
         called = true
         fn()
@@ -234,6 +238,9 @@ describe('mock', () => {
       const foobar = mock()
       foobar.x.y('Hello world').z('How are you')
       foobar.message = 'cool brah'
+      /**
+       * @param {string} who
+       */
       foobar.fn = (who) => 'Hello ' + who
 
       expect(foobar.x.y.$args[0]).toEqual(['Hello world'])
@@ -258,6 +265,9 @@ describe('mock', () => {
         test('Assigning functions to a mock gives you access to $args', () => {
           const m = mock()
 
+          /**
+           * @param {string} password
+           */
           const mockEncrypt = password => 'secret:' + password
           m.encrypt = mockEncrypt
           const encrypted = m.encrypt('my password')
